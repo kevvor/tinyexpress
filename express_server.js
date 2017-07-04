@@ -4,6 +4,9 @@ var PORT = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({extended: true}));
+
 var urlDatabase = {
   'b2xVn2': 'http://www.lighthouselabs.ca',
   '9sm5xK': 'http://www.google.com',
@@ -16,7 +19,7 @@ app.get('/urls', function(req, res) {
 })
 
 app.get('/urls/:id', function (req, res) {
-  let templateVars = {shortURL: req.params.id, urls: urlDatabase};
+  let templateVars = {shortURL: req.params.id, longURL: urlDatabase};
   res.render('urls_show', templateVars);
 });
 
