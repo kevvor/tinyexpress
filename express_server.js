@@ -21,8 +21,8 @@ function generateRandomString(length) {
   return randomString;
 }
 
-app.get("/u/:shortURL", (req, res) => {
-  // let longURL = ...
+app.get("/u/:shortURL", function (req, res) {
+  let longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
 });
 
@@ -44,7 +44,7 @@ app.get('/urls/:id', function (req, res) {
 app.post("/urls", function (req, res) {
   urlDatabase[generateRandomString(6)] = req.body['longURL'];
   console.log(req.body);  // debug statement to see POST parameters
-  res.send("Ok");         // Respond with 'Ok' (we will replace this)
+  res.redirect('/urls');         // Respond with 'Ok' (we will replace this)
 });
 
 app.get('/', function(req, res) {

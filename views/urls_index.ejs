@@ -8,7 +8,7 @@
   <h2>url list</h2>
   <ul>
     <% for (let shortURL in urls) { %>
-      <li><%= urls[shortURL] %> - <%= shortURL %> - <a href="">make tiny!</a></li>
+      <li><%= urls[shortURL] %> - <a href=<%= urls[shortURL]%>><%= shortURL %></a></li>
     <% } %>
   </ul>
 </body>
