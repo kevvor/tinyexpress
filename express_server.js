@@ -9,18 +9,22 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var urlDatabase = {
   'b2xVn2': 'http://www.lighthouselabs.ca',
-  '9sm5xK': 'http://www.google.com',
-  'adsf': 'www.google.ca'
+  '9sm5xK': 'http://www.google.com'
 };
 
 function generateRandomString(length) {
   let randomString = '';
   let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for (var i = 0; i <= length; i++) {
+  for (var i = 0; i < length; i++) {
     randomString += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return randomString;
 }
+
+app.get("/u/:shortURL", (req, res) => {
+  // let longURL = ...
+  res.redirect(longURL);
+});
 
 app.get('/urls', function(req, res) {
   let templateVars = {urls: urlDatabase};
@@ -38,6 +42,7 @@ app.get('/urls/:id', function (req, res) {
 
 
 app.post("/urls", function (req, res) {
+  urlDatabase[generateRandomString(6)] = req.body['longURL'];
   console.log(req.body);  // debug statement to see POST parameters
   res.send("Ok");         // Respond with 'Ok' (we will replace this)
 });
@@ -57,3 +62,11 @@ app.get('/hello', function (req, res) {
 app.listen(PORT, function() {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+
+
+
+
+
+
+
