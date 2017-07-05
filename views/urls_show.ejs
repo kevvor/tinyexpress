@@ -5,7 +5,8 @@
     <title>tiny app</title>
   </head>
   <body style="font-size:20px; padding:50px;">
-    <%- include('partials/_header') %>
+      <%- include('partials/_header') %>
+
     <h4>reassign: <%= shortURL %></h4>
     <form method="POST" action= <%= `/urls/${shortURL}/edit` %>>
       <label for="reassignURL"></label>

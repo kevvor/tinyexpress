@@ -1,14 +1,21 @@
-<h1>tiny app</h1>
-<h3><a href='/urls/new'>trim a new url</a></h3>
-<% if(!username) { %>
-  <form action='/login' method='POST'>
-    <label for="username"><%= username %></label>
-    <input id="username" type="username" name="username" placeholder="create a username" style="width: 300px">
-    <input class="btn btn-primary" type="Submit" value="login">
-  </form>
-<% } else { %>
-  <form action='/logout' method='POST'>
-    <label for="username"><%= username %></label>
-    <input class="btn btn-primary" type="Submit" value="logout">
-  </form>
-<% } %>
+<div class = row>
+  <div class = 'col-sm-7'></div>
+  <div class = 'col-sm-5'>
+  <% if(!username) { %>
+    <form action='/login' method='POST'>
+      <label for="username"><%= username %></label>
+      <input id="username" type="username" name="username" placeholder="create a username" style="width: 300px">
+      <input class="btn btn-primary" type="Submit" value="login">
+    </form>
+  <% } else { %>
+    <form action='/logout' method='POST'>
+      <label for="username"><%= username %></label>
+      <input class="btn btn-primary" type="Submit" value="logout">
+    </form>
+  <% } %>
+  </div>
+
+  <h1>tiny app</h1>
+  <h3><a href='/urls/new'>trim a new url</a></h3>
+
+</div>
