@@ -8,9 +8,9 @@
     <%- include('partials/_header') %>
     <h3>reassign a url</h3>
     <form method="POST" action= <%= `/urls/${shortURL}/edit`%>>
-      <label for="newURL"><%= shortURL %></label>
-      <input id="newURL" type="text" name="newURL" placeholder=<%= longURL[shortURL] %> style="width: 300px">
-      <input type="Submit" value="edit">
+      <label for="reassignURL"><%= shortURL %></label>
+      <input id="reassignURL" type="text" name="reassignURL" placeholder=<%= longURL[shortURL] %> style="width: 300px">
+      <input class="btn btn-primary" type="Submit" value="edit">
     </form>
   </body>
 </html>
