@@ -6,6 +6,11 @@
   </head>
   <body style="font-size:20px; padding:50px;">
     <%- include('partials/_header') %>
-    <h4><%= longURL[shortURL] %> - <%= shortURL %></h4>
+    <h3>reassign a url</h3>
+    <form action=<%= `/urls/${shortURL}`%> method="POST">
+      <label for="longURL"><%= shortURL %></label>
+      <input id="longURL" type="text" name="longURL" placeholder=<%= longURL[shortURL] %> style="width: 300px">
+      <input type="Submit" value="submit">
+    </form>
   </body>
 </html>
