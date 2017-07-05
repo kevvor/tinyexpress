@@ -4,11 +4,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body style="font-size:20px; padding:50px;">
-    <% include partials/_header %>
+    <%- include('partials/_header') %>
     <form action="/urls" method="POST" style="margin:150px;">
       <label for="longURL">enter a url:</label>
       <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
-      <input type="Submit" value="Submit">
+      <input class="btn btn-primary" type="Submit" value="submit">
     </form>
   </body>
 </html>
