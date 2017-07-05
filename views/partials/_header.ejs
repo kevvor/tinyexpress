@@ -1,7 +1,14 @@
 <h1>tiny app</h1>
 <h4><a href='/urls/new'>trim a new url</a></h4>
-<form action='/login' method='POST'>
+<% if(!username) { %>
+  <form action='/login' method='POST'>
     <label for="username"><%= username %></label>
     <input id="username" type="username" name="username" placeholder="create a username" style="width: 300px">
     <input class="btn btn-primary" type="Submit" value="submit">
-</form>
+  </form>
+<% } else { %>
+  <form action='/logout' method='POST'>
+    <label for="username"><%= username %></label>
+    <input class="btn btn-primary" type="Submit" value="logout">
+  </form>
+<% } %>
