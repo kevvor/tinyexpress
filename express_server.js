@@ -47,8 +47,13 @@ app.post("/urls", function (req, res) {
   res.redirect('/urls');         // Respond with 'Ok' (we will replace this)
 });
 
+app.post('/urls/:id/delete', function (req, res) {
+  delete urlDatabase[req.params.id];
+  res.redirect('/urls');
+})
+
 app.get('/', function(req, res) {
-  res.end('Hello!');
+  res.redirect('/urls')
 });
 
 app.get('/urls.json', function(req, res) {
@@ -56,7 +61,7 @@ app.get('/urls.json', function(req, res) {
 })
 
 app.get('/hello', function (req, res) {
-  res.end('<html><body>Hello <b>World</b></body></html>\n')
+  res.redirect('/urls')
 })
 
 app.listen(PORT, function() {

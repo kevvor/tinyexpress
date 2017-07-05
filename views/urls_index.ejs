@@ -3,14 +3,19 @@
 <head>
   <title>TinyApp</title>
 </head>
-<body>
+<body style="font-size:20px; padding:50px;">
   <%- include('partials/_header') %>
-  <h2>url list</h2>
+  <h4>urls generated</h4>
   <ul>
     <% for (let shortURL in urls) { %>
-      <li><%= urls[shortURL] %> - <a href=<%= urls[shortURL]%>><%= shortURL %></a></li>
+      <li><%= urls[shortURL] %> - <a href= <%= urls[shortURL]%>> <%= shortURL %></a>
+        <form method="POST" action=<%= `/urls/${shortURL}/delete` %>>
+          <button type="delete" value="delete">delete</button>
+        </form>
+      </li>
     <% } %>
   </ul>
 </body>
 </html>
+
 
