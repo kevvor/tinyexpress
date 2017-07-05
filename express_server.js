@@ -43,8 +43,8 @@ app.get('/urls/:id', function (req, res) {
 
 app.post("/urls", function (req, res) {
   urlDatabase[generateRandomString(6)] = req.body['longURL'];
-  console.log(req.body);  // debug statement to see POST parameters
-  res.redirect('/urls');         // Respond with 'Ok' (we will replace this)
+  console.log(req.body);
+  res.redirect('/urls');
 });
 
 app.post('/urls/:id/delete', function (req, res) {
