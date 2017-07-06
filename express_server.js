@@ -41,9 +41,12 @@ app.get('/register', (req, res) => {
 app.post('/register', (req, res) => {
   let user_id = generateRandomString(4);
   users[user_id] = {}; // set User id
-  users[user_id].email = req.body['email'];
-  users[user_id].password = req.body['password'];
+  users[user_id].email = req.body['email']; // user email
+  users[user_id].password = req.body['password']; // user password
   res.cookie('user_id', user_id);
+  if (req.body['email'] === '' || req.body['password'] === '') {
+    res.status(404).redirect('/error');
+  }
   console.log(users);
   res.redirect('/urls')
 });
@@ -130,6 +133,11 @@ app.post('/login', (req, res) => {
 app.post('/logout', (req, res) => {
   res.clearCookie('username');
   res.redirect('/register')
+});
+
+app.get ('/error', (req, res) => {
+  let templateVars = {username: req.cookies["username"]};
+  res.render('error', templateVars)
 });
 
 

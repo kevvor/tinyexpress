@@ -1,8 +1,12 @@
 <div class = row>
-  <div class = 'col-sm-7'></div>
-  <div class = 'col-sm-5'>
+  <div class = 'col-sm-8'>
+      <h1 style="margin-top: 0px;
+    margin-bottom: 0px;">tiny app</h1>
+      <h3><a href='/urls/new'>trim a new url</a></h3>
+  </div>
+  <div class = 'col-sm-4'>
   <% if(!username) { %>
-    <form action='/login' method='POST'>
+    <form style="margin-top: 14px; action='/login' method='POST'>
       <label for="username"><%= username %></label>
       <input id="username" type="username" name="username" placeholder="create a username" style="width: 300px">
       <input class="btn btn-primary" type="Submit" value="login">
@@ -14,8 +18,4 @@
     </form>
   <% } %>
   </div>
-
-  <h1>tiny app</h1>
-  <h3><a href='/urls/new'>trim a new url</a></h3>
-
 </div>
