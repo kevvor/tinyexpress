@@ -12,7 +12,7 @@
 
       <li class="list-group-item">
 
-        <%= shortURL %> &rarr; <a href= <%= urls[user_id] %>><%= urls[user_id][shortURL] %></a>
+        <a href= <%= urls[user_id][shortURL] %>> <%= shortURL %> </a> &rarr; <a href= <%= urls[user_id][shortURL] %>><%= urls[user_id][shortURL] %></a>
 
         <form method="POST" action= <%= `/urls/${shortURL}/delete` %>>
 
