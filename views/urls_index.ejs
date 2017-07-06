@@ -8,16 +8,21 @@
   <%- include('partials/_header') %>
   <h4>urls generated</h4>
   <ul class="list-group">
-    <% for (let shortURL in urls) { %>
-      <li class="list-group-item"><a href= <%= urls[shortURL] %>><%= shortURL %></a> &rarr; <a href= <%= urls[shortURL] %>><%= urls[shortURL] %></a>
+    <% for (let shortURL in urls[user_id]) { %>
+
+      <li class="list-group-item">
+
+        <%= shortURL %> &rarr; <a href= <%= urls[user_id] %>><%= urls[user_id][shortURL] %></a>
+
         <form method="POST" action= <%= `/urls/${shortURL}/delete` %>>
+
           <a class="btn btn-primary" href=<%= `/urls/${shortURL}/` %> role="button">edit</a>
+
           <button type="delete" value="delete" class="btn btn-danger">delete</button>
+
         </form>
       </li>
     <% } %>
   </ul>
 </body>
 </html>
-
-

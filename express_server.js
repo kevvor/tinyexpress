@@ -13,8 +13,10 @@ const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 
 var urlDatabase = {
+  aaaa: {
   'b2xVn2': 'http://www.lighthouselabs.ca',
   '9sm5xK': 'http://www.google.com'
+  }
 };
 
 const users = {
@@ -80,7 +82,7 @@ app.get('/urls', (req, res) => {
 //renders new url page (user can generate short url from )
 app.get("/urls/new", (req, res) => {
   let loginCookie = req.cookies['user_id']
-  if (!loginCookie) {
+  if (!loginCookie) { //redirect to login if cookie not found
     res.redirect('/login');
   } else {
   let templateVars = {user_id: req.cookies["user_id"]}
@@ -92,29 +94,40 @@ app.get("/urls/new", (req, res) => {
 //renders single url page. user can reassign shorturl to different longer url
 app.get('/urls/:id', (req, res) => {
   let templateVars = {user_id: req.cookies["user_id"], shortURL: req.params.id, longURL: urlDatabase};
+  let loginCookie = req.cookies['user_id']
+  if (!loginCookie) {
+    res.redirect('/login');
+  } else {
   res.render('urls_show', templateVars);
+  }
 });
 
 
-//generates 6 letter randomstring to assign to a long url
+//generates 6 letter random string to assign to a long url
 app.post("/urls", (req, res) => {
-  urlDatabase[generateRandomString(6)] = req.body['longURL'];
-  console.log(req.body);
+  let userID = req.cookies['user_id']
+  let randomString6 = generateRandomString(6);
+  if (!urlDatabase[userID]) {
+    urlDatabase[userID] = {};
+  }
+  urlDatabase[userID][randomString6] = req.body['longURL'];
   res.redirect('/urls');
+  console.log(urlDatabase);
 });
 
 
 //delete url
 app.post('/urls/:id/delete', (req, res) => {
-  delete urlDatabase[req.params.id];
+  let loginCookie = req.cookies['user_id'];
+  delete urlDatabase[loginCookie][req.params.id];
   res.redirect('/urls');
 });
 
 
 //edit url; reassign a new long url to a short url
 app.post('/urls/:id/edit', (req, res) => {
-  urlDatabase[req.params.id] = req.body['reassignURL'];
-  console.log(req.body['newURL'])
+  let loginCookie = req.cookies['user_id'];
+  urlDatabase[loginCookie][req.params.id] = req.body['reassignURL'];
   res.redirect('/urls');
 });
 
@@ -146,18 +159,17 @@ app.post('/login', (req, res) => {
     if (users[user_id].email === req.body['email'] && users[user_id].password === req.body['password']) {
       res.cookie('user_id', user_id)
       res.redirect('/urls');
-    }
-    else {
-      res.redirect('/login')
+      return;
     }
   }
+  res.redirect('/login');
 });
 
 
 //user logout / clears cookie
 app.post('/logout', (req, res) => {
   res.clearCookie('user_id');
-  res.redirect('/register')
+  res.redirect('/login')
 });
 
 app.get ('/error', (req, res) => {
@@ -179,6 +191,7 @@ app.post('/error', (req, res) => {
 //app is running!
 app.listen(PORT, function() {
   console.log(`Example app listening on port ${PORT}`);
+  console.log(users)
 });
 
 
