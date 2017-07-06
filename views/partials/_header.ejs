@@ -1,19 +1,18 @@
 <div class = row>
-  <div class = 'col-sm-8'>
+  <div class = 'col-sm-9'>
       <h1 style="margin-top: 0px;
     margin-bottom: 0px;">tiny app</h1>
       <h3><a href='/urls/new'>trim a new url</a></h3>
   </div>
-  <div class = 'col-sm-4'>
-  <% if(!username) { %>
+  <div class = 'col-sm-3'>
+  <% if(!user_id) { %>
     <form style="margin-top: 14px;" action='/login' method='POST'>
-      <label for="username"><%= username %></label>
-      <input id="username" type="username" name="username" placeholder="create a username" style="width: 300px">
+      <label for="user_id"><%= user_id %></label>
       <input class="btn btn-primary" type="Submit" value="login">
     </form>
   <% } else { %>
     <form action='/logout' method='POST'>
-      <label for="username"><%= username %></label>
+      <label for="user_id">userID: <%= user_id %></label>
       <input class="btn btn-primary" type="Submit" value="logout">
     </form>
   <% } %>
