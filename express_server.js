@@ -12,6 +12,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 
+const globalDatabase = {
+
+} //global database to allow redirects from anyone!
+
 var urlDatabase = {
   aaaa: {
   'b2xVn2': 'http://www.lighthouselabs.ca',
@@ -67,7 +71,7 @@ app.post('/register', (req, res) => {
 
 //redirect from shortened url to full url
 app.get("/u/:shortURL", (req, res) => {
-  let longURL = urlDatabase[req.params.shortURL];
+  let longURL = globalDatabase[req.params.shortURL];
   res.redirect(longURL);
 });
 
@@ -111,8 +115,10 @@ app.post("/urls", (req, res) => {
     urlDatabase[userID] = {};
   }
   urlDatabase[userID][randomString6] = req.body['longURL'];
+  globalDatabase[randomString6] = req.body['longURL'];
   res.redirect('/urls');
   console.log(urlDatabase);
+  console.log(globalDatabase);
 });
 
 
@@ -120,6 +126,8 @@ app.post("/urls", (req, res) => {
 app.post('/urls/:id/delete', (req, res) => {
   let loginCookie = req.cookies['user_id'];
   delete urlDatabase[loginCookie][req.params.id];
+  delete globalDatabase[req.params.id];
+  console.log(globalDatabase);
   res.redirect('/urls');
 });
 
@@ -128,6 +136,7 @@ app.post('/urls/:id/delete', (req, res) => {
 app.post('/urls/:id/edit', (req, res) => {
   let loginCookie = req.cookies['user_id'];
   urlDatabase[loginCookie][req.params.id] = req.body['reassignURL'];
+  globalDatabase[req.params.id] = req.body['reassignURL'];
   res.redirect('/urls');
 });
 
