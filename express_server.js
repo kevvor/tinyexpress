@@ -17,7 +17,10 @@ var urlDatabase = {
   '9sm5xK': 'http://www.google.com'
 };
 
-const users = {}
+const users = {
+  aaaa: {email: 'test@email.com',
+        password: 'password'}
+}
 
 function generateRandomString(length) {
   let randomString = '';
@@ -44,11 +47,18 @@ app.post('/register', (req, res) => {
   users[user_id].email = req.body['email']; // user email
   users[user_id].password = req.body['password']; // user password
   res.cookie('user_id', user_id);
+
   if (req.body['email'] === '' || req.body['password'] === '') {
     res.status(404).redirect('/error');
   }
-  console.log(users);
-  res.redirect('/urls')
+  for (let user_id in users) {
+    if (users[user_id].email === req.body['email']) {
+      res.status(404).redirect('/error');
+    }
+    else {
+      res.redirect('/urls')
+    }
+  }
 });
 
 
@@ -136,8 +146,21 @@ app.post('/logout', (req, res) => {
 });
 
 app.get ('/error', (req, res) => {
-  let templateVars = {username: req.cookies["username"]};
-  res.render('error', templateVars)
+  res.render('error')
+});
+
+app.post('/error', (req, res) => {
+  if (req.body['email'] === '' || req.body['password'] === '') {
+    res.status(404).redirect('/error');
+  }
+  for (let user_id in users) {
+    if (users[user_id].email === req.body['email']) {
+      res.status(404).redirect('/error');
+    }
+    else {
+      res.redirect('/urls')
+    }
+  }
 });
 
 
