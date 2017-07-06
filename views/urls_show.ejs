@@ -5,11 +5,12 @@
     <title>tiny app</title>
   </head>
   <body style="font-size:20px; padding:50px;">
-    <%- include('partials/_header') %>
-    <h3>reassign a url</h3>
-    <form method="POST" action= <%= `/urls/${shortURL}/edit`%>>
-      <label for="reassignURL"><%= shortURL %></label>
-      <input id="reassignURL" type="text" name="reassignURL" placeholder=<%= longURL[shortURL] %> style="width: 300px">
+      <%- include('partials/_header') %>
+
+    <h4>reassign: <%= shortURL %></h4>
+    <form method="POST" action= <%= `/urls/${shortURL}/edit` %>>
+      <label for="reassignURL"></label>
+      <input id="reassignURL" type="text" name="reassignURL" style="width: 300px" placeholder=<%= longURL[shortURL] %>>
       <input class="btn btn-primary" type="Submit" value="edit">
     </form>
   </body>
