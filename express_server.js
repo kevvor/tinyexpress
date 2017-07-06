@@ -79,8 +79,13 @@ app.get('/urls', (req, res) => {
 
 //renders new url page (user can generate short url from )
 app.get("/urls/new", (req, res) => {
+  let loginCookie = req.cookies['user_id']
+  if (!loginCookie) {
+    res.redirect('/login');
+  } else {
   let templateVars = {user_id: req.cookies["user_id"]}
   res.render("urls_new", templateVars);
+  };
 });
 
 
