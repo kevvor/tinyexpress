@@ -6,13 +6,11 @@
   </div>
   <div class = 'col-sm-3'>
   <% if(!user_id) { %>
-    <form style="margin-top: 14px;" action='/login' method='POST'>
-      <label for="user_id"><%= user_id %></label>
-      <input class="btn btn-primary" type="Submit" value="login">
-    </form>
+    <a class="btn btn-primary" href='/login'role="button">login</a>
+    <a class="btn btn-primary" href='/register'role="button">register</a>
   <% } else { %>
     <form action='/logout' method='POST'>
-      <label for="user_id">userID: <%= user_id %></label>
+      <label for="user_id"><%= user.email %></label>
       <input class="btn btn-primary" type="Submit" value="logout">
     </form>
   <% } %>
