@@ -12,21 +12,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 
-const globalDatabase = {
+const bcrypt = require('bcrypt');
 
-} //global database to allow redirects from anyone!
+const globalDatabase = {} //global database to allow redirects from anyone!
 
-var urlDatabase = {
-  aaaa: {
-  'b2xVn2': 'http://www.lighthouselabs.ca',
-  '9sm5xK': 'http://www.google.com'
-  }
-};
+var urlDatabase = {}
 
-const users = {
-  aaaa: {email: 'test@email.com',
-        password: 'pwd'}
-}
+const users = {}
 
 function generateRandomString(length) {
   let randomString = '';
@@ -62,7 +54,8 @@ app.post('/register', (req, res) => {
   }
   users[newUser_id] = {}; // set User id
   users[newUser_id].email = req.body['email']; // user email
-  users[newUser_id].password = req.body['password']; // user password
+  let password = req.body['password'];
+  users[newUser_id].password = bcrypt.hashSync(password, 10); // user password
   console.log(users)
   res.cookie('user_id', newUser_id);
   res.redirect('/urls')
@@ -152,7 +145,6 @@ app.get('/urls.json', (req, res) => {
   res.json(urlDatabase);
 });
 
-
 //redirect to registration page
 app.get('/hello', (req, res) => {
   res.redirect('/register')
@@ -165,7 +157,7 @@ app.get('/login', (req, res) => {
 //user login / stores cookie
 app.post('/login', (req, res) => {
   for (let user_id in users) {
-    if (users[user_id].email === req.body['email'] && users[user_id].password === req.body['password']) {
+    if (users[user_id].email === req.body['email'] && bcrypt.compareSync(req.body['password'], users[user_id].password)) {
       res.cookie('user_id', user_id)
       res.redirect('/urls');
       return;
@@ -181,21 +173,12 @@ app.post('/logout', (req, res) => {
   res.redirect('/login')
 });
 
+
+//error page only has buttons to move user to login/register
 app.get ('/error', (req, res) => {
   res.render('error')
 });
 
-app.post('/error', (req, res) => {
-  for (let user_id in users) {
-    if (users[user_id].email === req.body['email'] && users[user_id].password === req.body['password']) {
-      res.cookie('user_id', user_id)
-      res.redirect('/urls');
-    }
-    else {
-      res.redirect('/login')
-    }
-  }
-});
 
 //app is running!
 app.listen(PORT, function() {
