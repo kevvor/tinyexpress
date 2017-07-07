@@ -1,17 +1,31 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
   <head>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <title>tiny app</title>
+
   </head>
+
   <body style="font-size:20px; padding:50px;">
-      <%- include('partials/_header') %>
+
+      <%- include("partials/_header") %>
 
     <h4>reassign: <%= shortURL %></h4>
+
     <form method="POST" action= <%= `/urls/${shortURL}/edit` %>>
+
       <label for="reassignURL"></label>
+
       <input id="reassignURL" type="text" name="reassignURL" style="width: 300px" placeholder=<%= longURL[shortURL] %>>
+
       <input class="btn btn-primary" type="Submit" value="edit">
+
     </form>
+
   </body>
+
 </html>

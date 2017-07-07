@@ -6,7 +6,7 @@ var PORT = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
 var cookieSession = require('cookie-session')
@@ -20,9 +20,9 @@ const bcrypt = require('bcrypt');
 
 const globalDatabase = {} //global database to allow redirects from anyone!
 
-var urlDatabase = {}
+const urlDatabase = {} // database of all urls
 
-const users = {}
+const users = {} // database of all users
 
 function generateRandomString(length) {
   let randomString = '';
@@ -66,7 +66,7 @@ app.post('/register', (req, res) => {
 
 
 //redirect from shortened url to full url
-app.get("/u/:shortURL", (req, res) => {
+app.get('/u/:shortURL', (req, res) => {
   let longURL = globalDatabase[req.params.shortURL];
   res.redirect(longURL);
 });
@@ -85,31 +85,31 @@ app.get('/urls', (req, res) => {
 
 
 //renders new url page (user can generate short url from )
-app.get("/urls/new", (req, res) => {
+app.get('/urls/new', (req, res) => {
   let loginCookie = req.session.user_id
   if (!loginCookie) { //redirect to login if cookie not found
     res.redirect('/login');
   } else {
   let templateVars = {user_id: req.session.user_id, user: users[req.session.user_id]}
-  res.render("urls_new", templateVars);
+  res.render('urls_new', templateVars);
   };
 });
 
 
 //renders single url page. user can reassign shorturl to different longer url
 app.get('/urls/:id', (req, res) => {
-  let templateVars = {user_id: req.session.user_id, shortURL: req.params.id, longURL: urlDatabase, user: users[req.session.user_id]};
   let loginCookie = req.session.user_id
   if (!loginCookie) {
     res.redirect('/login');
   } else {
+  let templateVars = {user_id: req.session.user_id, shortURL: req.params.id, longURL: urlDatabase, user: users[req.session.user_id]};
   res.render('urls_show', templateVars);
   }
 });
 
 
 //generates 6 letter random string to assign to a long url
-app.post("/urls", (req, res) => {
+app.post('/urls', (req, res) => {
   let userID = req.session.user_id
   let randomString = generateRandomString(6);
   if (!urlDatabase[userID]) {
