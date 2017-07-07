@@ -55,7 +55,7 @@ app.get('/urls', (req, res) => {
   } else {
   let templateVars = {urls: urlDatabase, user_id: req.session.user_id, user: users[req.session.user_id]};
   res.render('urls_index', templateVars);
-  };
+  }
 });
 
 //renders new url page (user can generate short url from )
@@ -66,7 +66,7 @@ app.get('/urls/new', (req, res) => {
   } else {
   let templateVars = {user_id: req.session.user_id, user: users[req.session.user_id]};
   res.render('urls_new', templateVars);
-  };
+  }
 });
 
 //renders single url page. user can reassign shorturl to different longer url
