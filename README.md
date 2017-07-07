@@ -1,9 +1,20 @@
-# Express App - tiny app
+# TinyApp Project
 
-## Problem Statement
+TinyApp is a full stack webb application built with Node and Express that allows users to shorten long URLs (a la bit.ly)
 
-Using express; take a full url, create a 6 character string that will redirect to the original url.
+## Final Product
 
-## Expected Usage
+////
 
-This program should be executed from the browser.
+## Dependencies
+
+- Node.js
+- Express
+- EJS
+- bcrypt
+- body-parser
+- cookie-session
+
+## Getting Started
+
+- Install all dependencies (using the `npm install` command).
